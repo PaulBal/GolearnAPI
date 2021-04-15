@@ -1,11 +1,12 @@
 var express = require('express'),
   app = express(),
-  port = process.env.PORT || 8000,
+  cors = require('cors'),
+  port = process.env.PORT || 8080,
   mongoose = require('mongoose'),
-  Student = require('./api/models/studentModel'), //created model loading here
+  Student = require('./api/models/studentModel'),
+  Lecture = require('./api/models/lectureModel'),
   bodyParser = require('body-parser');
 
-const cors = require('cors');
 app.use(cors());
   
 // mongoose instance connection url connection
@@ -25,11 +26,13 @@ var studentRoutes = require('./api/routes/studentRoutes');
 var tutorRoutes = require('./api/routes/tutorRoutes');
 var authRoutes = require('./api/routes/auth/authRoutes');
 var userRoutes = require('./api/routes/auth/userRoutes');
+var lectureRoutes = require('./api/routes/lectureRoutes');
 //register the routes
 studentRoutes(app); 
 // tutorRoutes(app);
 authRoutes(app);
 userRoutes(app);
+lectureRoutes(app);
 
 app.listen(port);
 

@@ -29,7 +29,7 @@ exports.read_a_student = (req, res) => {
 };
 
 exports.update_a_student = (req, res) => {
-  Task.findOneAndUpdate({_id: req.params.studentId}, req.body, {new: true}, (err, task) => {
+  Student.findOneAndUpdate({_id: req.params.studentId}, req.body, {new: true}, (err, student) => {
     if (err)
       res.send(err);
     res.json(task);
