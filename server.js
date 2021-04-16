@@ -11,7 +11,7 @@ app.use(cors());
   
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/Golearn',
+mongoose.connect('mongodb+srv://Paul:1234@cluster0.ddqrq.mongodb.net/Golearn?retryWrites=true&w=majority',
                   {useUnifiedTopology: true, useNewUrlParser: true}).then(
                     () => console.log('Connected to MongoDB'),
                     err => console.log(err)
