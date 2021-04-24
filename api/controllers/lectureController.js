@@ -4,7 +4,7 @@ var mongoose = require('mongoose'),
   Lecture = mongoose.model('Lecture');
 
 exports.get_lectures = (req, res) => {
-    Lecture.find({}, (err, lecture) => {
+  Lecture.find({}, (err, lecture) => {
     if (err)
       res.send(err);
     res.json(lecture);
@@ -12,13 +12,13 @@ exports.get_lectures = (req, res) => {
 };
 
 exports.add_a_lecture = (req, res) => {
-    var new_lecture = new Lecture(req.body);
-    new_lecture.save((err, lecture) => {
-      if (err)
-        res.send(err);
-      res.json(lecture);
-    });
-  };
+  var new_lecture = new Lecture(req.body);
+  new_lecture.save((err, lecture) => {
+    if (err)
+      res.send(err);
+    res.json(lecture);
+  });
+};
   
 exports.read_a_lecture = (req, res) => {
   Lecture.findById(req.params.lectureId, (err, lecture) => {

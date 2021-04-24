@@ -3,6 +3,18 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var lectureModel = new Schema({
+  teacherId: {
+    type: String,
+    required: 'Please enter the teacher\'s id'
+  },
+  date: {
+    type: Date,
+    required: 'Please enter the date'
+  },
+  time: {
+    type: String,
+    required: 'Please enter the time'
+  },
   title: {
     type: String,
     required: 'Please enter a title'
@@ -25,8 +37,7 @@ var lectureModel = new Schema({
   },
   subjects: [{
       type: String
-  }],
-  professorId: String
+  }]
 });
 
 module.exports = mongoose.model('Lecture', lectureModel);

@@ -1,4 +1,5 @@
 'use strict';
+
 module.exports = (app) => {
     var lectures = require('../controllers/lectureController');
 

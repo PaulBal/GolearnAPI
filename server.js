@@ -23,13 +23,14 @@ app.use(bodyParser.json());
 
 //importing routes
 var studentRoutes = require('./api/routes/studentRoutes');
-var tutorRoutes = require('./api/routes/tutorRoutes');
+var teacherRoutes = require('./api/routes/teacherRoutes');
 var authRoutes = require('./api/routes/auth/authRoutes');
 var userRoutes = require('./api/routes/auth/userRoutes');
 var lectureRoutes = require('./api/routes/lectureRoutes');
+
 //register the routes
-studentRoutes(app); 
-// tutorRoutes(app);
+studentRoutes(app);
+teacherRoutes(app);
 authRoutes(app);
 userRoutes(app);
 lectureRoutes(app);
