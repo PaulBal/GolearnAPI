@@ -3,17 +3,9 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var lectureModel = new Schema({
-  teacherId: {
-    type: String,
-    required: 'Please enter the teacher\'s id'
-  },
-  date: {
-    type: Date,
-    required: 'Please enter the date'
-  },
-  time: {
-    type: String,
-    required: 'Please enter the time'
+  tutorId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Tutor'
   },
   title: {
     type: String,
@@ -23,21 +15,31 @@ var lectureModel = new Schema({
     type: String,
     required: 'Please enter a description'
   },
-  studentsEnrolled: {
+  startDate: {
+    type: Date,
+    required: 'Please enter start date'
+  },
+  endDate: {
+    type: Date,
+    required: 'Please enter end date'
+  },
+  enrollments: {
       type: Number,
       default: 0
   },
   maxEnrollments: {
       type: Number,
-      required: 'Please enter maxEnrollments'
+      required: 'Please enter maximum number of enrollments'
   },
-  price: {
-      type: Number,
-      default: 0
+  availableSpots: {
+      type: Number
   },
-  subjects: [{
-      type: String
-  }]
+  studentsEnrolled: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Student'
+    }
+  ]
 });
 
 module.exports = mongoose.model('Lecture', lectureModel);

@@ -8,8 +8,8 @@ db.mongoose = mongoose;
 db.user = require("./auth/userModel");
 db.role = require("./auth/roleModel");
 db.students = require("./studentModel");
-db.tutors = require("./teacherModel");
+db.tutors = require("./tutorModel");
 
-db.ROLES = ["user", "student", "teacher", "admin", "moderator"];
+db.ROLES = ["user", "student", "tutor", "admin", "moderator"];
 
 module.exports = db;
