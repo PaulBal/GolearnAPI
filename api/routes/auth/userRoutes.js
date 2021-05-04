@@ -20,7 +20,7 @@ module.exports = (app) => {
   );
 
   app.get("/api/teacher",
-    [authJwt.verifyToken, authJwt.isTeacher],
+    [authJwt.verifyToken, authJwt.isTutor],
     controller.teacherBoard
   );
 

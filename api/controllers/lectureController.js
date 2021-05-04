@@ -22,23 +22,18 @@ exports.add_a_lecture = (req, res) => {
 
   Tutor.findById(req.body.tutorId, (err, tutor) => {
     if(err || !tutor) {
-      res.status(400);
-      res.send('We couldn\'t find any tutor with the speified id');
+      res.status(400).send('We couldn\'t find any tutor with the speified id');
       return;
     } else {
       Lecture.find({'tutorId': tutor.id, 'startDate': { '$lt': req.body.endDate }, 'endDate': { '$gt': req.body.startDate }}, (err, docs) => {
         if(docs.length > 0) {
-          res.status(400);
-          res.send('The tutor with id ' + req.body.tutorId + ' is not available at the specified time');
+          res.status(400).send('The tutor with id ' + req.body.tutorId + ' is not available at the specified time');
         } else if(err) {
-          res.status(400);
-          res.send(err);  
+          res.status(400).send(err);  
         } else {
-          new_lecture.update({ 'tutorId': tutor.id });
-          new_lecture.save((err, lecture) => {
+          new_lecture.update({ 'tutorId': tutor.id }).save((err, lecture) => {
             if (err) {
-              res.status(400);
-              res.send(err);
+              res.status(400).send(err);
             }
             res.json(lecture);
             Tutor.findByIdAndUpdate(
@@ -47,8 +42,8 @@ exports.add_a_lecture = (req, res) => {
               { new: true, useFindAndModify: false },
               (err, res) => {
                 if(err) {
-                  res.status(400);
-                  res.send(err);
+                  res.status(400).send(err);
+                  new_lecture.delete();
                 }
               }
             );

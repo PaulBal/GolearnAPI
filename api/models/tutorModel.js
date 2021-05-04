@@ -4,6 +4,10 @@ var Schema = mongoose.Schema;
 
 
 var tutorSchema = new Schema({
+  username: {
+    type: String,
+    required: 'Please enter username'
+  },
   firstName: {
     type: String,
     required: 'Please enter first name'
@@ -15,6 +19,10 @@ var tutorSchema = new Schema({
   email: {
     type: String,
     required: 'Please enter an email address'
+  },
+  password: {
+    type: String,
+    required: 'Please etner a password'
   },
   lectures: [
     {

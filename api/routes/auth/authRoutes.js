@@ -1,5 +1,6 @@
 const { verifySignUp } = require("../../middlewares");
-const controller = require("../../controllers/auth/authController");
+const studentAuthController = require("../../controllers/auth/studentAuthController");
+const tutorAuthController = require("../../controllers/auth/tutorAuthController");
 
 module.exports = (app) => {
   app.use((req, res, next) => {
@@ -11,13 +12,19 @@ module.exports = (app) => {
   });
 
   app.post(
-    "/api/auth/signup",
+    "/api/auth/student/signup",
     [
-      verifySignUp.checkDuplicateUsernameOrEmail,
-      verifySignUp.checkRolesExisted
+      verifySignUp.checkDuplicateStudent
     ],
-    controller.signup
+    studentAuthController.student_signup
   );
 
-  app.post("/api/auth/signin", controller.signin);
+  app.post(
+    "/api/auth/tutor/signup",
+    verifySignUp.checkDuplicateTutor,
+    tutorAuthController.tutor_signup
+  );
+
+  app.post("/api/auth/student/signin", studentAuthController.student_signin);
+  app.post("/api/auth/tutor/signin", tutorAuthController.tutor_signin);
 };

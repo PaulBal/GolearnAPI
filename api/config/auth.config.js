@@ -1,3 +1,3 @@
 module.exports = {
-    secret: "this-is-a-secret-key"
+    secret: "bachelor-thesis-2021"
 };
