@@ -62,7 +62,7 @@ exports.tutor_signup = (req, res) => {
         });
       }
   
-        var token = jwt.sign({ id: tutor.id }, config.secret, {
+        var token = jwt.sign({ id: tutor.id, role: 'tutor' }, config.secret, {
           expiresIn: 86400 // 24 hours
         });
   

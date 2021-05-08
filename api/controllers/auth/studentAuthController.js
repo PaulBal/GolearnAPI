@@ -1,7 +1,6 @@
 const config = require("../../config/auth.config");
 const db = require("../../models");
 const Student = db.students;
-const Tutor = db.tutors;
 
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
@@ -63,7 +62,7 @@ exports.student_signin = (req, res) => {
       });
     }
 
-      var token = jwt.sign({ id: student.id }, config.secret, {
+      var token = jwt.sign({ id: student.id, role: 'student' }, config.secret, {
         expiresIn: 86400 // 24 hours
       });
 
