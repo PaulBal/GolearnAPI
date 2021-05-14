@@ -11,9 +11,12 @@ var lectureModel = new Schema({
     type: String,
     required: 'Please enter a title'
   },
+  subject: {
+    type: String,
+    required: 'Please enter the subject of the lecture'
+  },
   description: {
     type: String,
-    required: 'Please enter a description'
   },
   startDate: {
     type: Date,

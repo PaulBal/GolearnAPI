@@ -1,15 +1,49 @@
 'use strict';
 
-var mongoose = require('mongoose'),
-  Tutor = mongoose.model('Tutor');
+const { decode } = require('jsonwebtoken');
 
-exports.list_all_tutors = (req, res) => {
-  Tutor.find({}, (err, tutor) => {
-    if (err)
-      res.send(err);
-    res.json(tutor);
-  });
+var mongoose = require('mongoose'),
+  Tutor = mongoose.model('Tutor'),
+  Student = mongoose.model('Student'),
+  Lecture = mongoose.model('Lecture');
+
+exports.lectures_created_by_tutor = (req, res) => {
+  let token = req.headers["x-access-token"];
+
+  if(token) {
+    let tutorId = decode(token).id;
+    
+    Lecture.find({tutorId: tutorId}, (err, lectures) =>{
+      if(err) {
+        res.status(400).send(err);
+        return;
+      } else {
+
+        res.status(200).send(lectures);
+      }
+    })
+  }
 };
+
+exports.delete_lecture = (req, res) => {
+  let token = req.headers["x-access-token"];
+
+  if(token) {
+    let tutorId = decode(token).id;
+
+    Tutor.findByIdAndUpdate(tutorId, {$pull: {lectures: req.params.lectureId}}, {useFindAndModify: false}, (err) => {
+      if(err) {
+        res.status(400).send();
+        return;
+      } 
+      
+      Lecture.findByIdAndDelete(req.params.lectureId, {useFindAndModify: false}).exec();
+      Student.find({lectures: req.params.lectureId}).updateMany({$pull: {lectures: req.params.lectureId}}).exec();
+
+      res.status(200).send();
+    })
+  }
+}
 
 exports.add_a_tutor = (req, res) => {
   var new_tutor = new Tutor(req.body);

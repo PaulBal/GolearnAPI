@@ -13,7 +13,7 @@ app.use(cors());
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb+srv://Paul:1234@cluster0.ddqrq.mongodb.net/Golearn?retryWrites=true&w=majority',
                   {useUnifiedTopology: true, useNewUrlParser: true}).then(
-                    () => console.log('Connected to MongoDB'),
+                    () => console.log('Connected to Golearn database'),
                     err => console.log(err)
                   );
 
@@ -37,4 +37,4 @@ lectureRoutes(app);
 
 app.listen(port);
 
-console.log('RESTful API server started on: ' + port);
+console.log('Golearn API server started on port ' + port);

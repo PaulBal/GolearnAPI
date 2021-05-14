@@ -12,4 +12,7 @@ module.exports = (app) => {
         .get(studentList.read_a_student)
         .put(studentList.update_a_student)
         .delete(studentList.delete_a_student);
+
+    app.route('/my/enrollments')
+        .get(studentList.get_enrollments);
 }
