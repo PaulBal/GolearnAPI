@@ -35,6 +35,25 @@ authRoutes(app);
 userRoutes(app);
 lectureRoutes(app);
 
+server = require('http').Server(app);
+io = require('socket.io')(server, {
+  cors: 'http://localhost:4200'
+});
+
+io.on('connection', socket => {
+  socket.on('join-room', (roomId, userId) => {
+    console.log('user joined room ' + roomId);
+    socket.join(roomId);
+    socket.broadcast.to(roomId).emit('user-connected', userId);
+
+    socket.on('disconnect', () => {
+      console.log('user diconnected');
+      socket.broadcast.to(roomId).emit('user-disconnected', userId);
+    });
+  });
+});
+
 app.listen(port);
+server.listen(3000);
 
 console.log('Golearn API server started on port ' + port);

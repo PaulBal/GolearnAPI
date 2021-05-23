@@ -44,6 +44,7 @@ exports.add_a_lecture = (req, res) => {
             res.status(400).send('The tutor with id ' + tutorId + ' is not available at the specified time');
             return;
           } else if(endTimeInMillis - startTimeInMillis < minLectureLengthInMillis){
+            console.log(new Date(req.body.startDate) + ' ' + new Date(req.body.endDate));
             res.status(400).send('The lecture has to be at least 15 minutes long!');
             return;
           } else {
