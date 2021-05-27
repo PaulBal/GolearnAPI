@@ -40,14 +40,19 @@ io = require('socket.io')(server, {
   cors: 'http://localhost:4200'
 });
 
+var peersToCall = [];
 io.on('connection', socket => {
   socket.on('join-room', (roomId, userId) => {
-    console.log('user joined room ' + roomId);
+    console.log('user ' + userId + ' joined room ' + roomId);
     socket.join(roomId);
     socket.broadcast.to(roomId).emit('user-connected', userId);
+    // socket.emit('peers-to-call', peersToCall);
+    // peersToCall.push(userId);
 
     socket.on('disconnect', () => {
       console.log('user diconnected');
+      peersToCall = peersToCall.filter(peerId => peerId !== userId);
+      socket.disconnect();
       socket.broadcast.to(roomId).emit('user-disconnected', userId);
     });
   });
