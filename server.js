@@ -5,13 +5,14 @@ var express = require('express'),
   mongoose = require('mongoose'),
   Student = require('./api/models/studentModel'),
   Lecture = require('./api/models/lectureModel'),
+  dbConfig = require('./api/config/db.config')
   bodyParser = require('body-parser');
 
 app.use(cors());
   
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb+srv://Paul:1234@cluster0.ddqrq.mongodb.net/Golearn?retryWrites=true&w=majority',
+mongoose.connect(`mongodb+srv://${dbConfig.USER}:${dbConfig.PASSWORD}@cluster0.ddqrq.mongodb.net/Golearn?retryWrites=true&w=majority`,
                   {useUnifiedTopology: true, useNewUrlParser: true}).then(
                     () => console.log('Connected to Golearn database'),
                     err => console.log(err)
